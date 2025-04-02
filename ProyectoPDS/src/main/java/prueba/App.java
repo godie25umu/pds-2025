@@ -1,4 +1,4 @@
-package umu.pds.proyectotds;
+package prueba;
 
 public class App {
   public static void main(String[] args) {

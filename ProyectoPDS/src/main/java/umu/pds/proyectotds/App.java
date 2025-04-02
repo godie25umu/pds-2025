@@ -1,4 +1,4 @@
-package umu.pds.ProyectoPDS;
+package umu.pds.proyectotds;
 
 public class App {
   public static void main(String[] args) {

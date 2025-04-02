@@ -35,5 +35,17 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
+	
+	public void agregarCurso(RegistroCurso registro) {
+	    this.cursosInscritos.add(registro);
+	    registro.setUsuario(this);
+	}
+
+	public void eliminarCurso(RegistroCurso registro) {
+	    this.cursosInscritos.remove(registro);
+	    registro.setUsuario(null);
+	}
 
 }

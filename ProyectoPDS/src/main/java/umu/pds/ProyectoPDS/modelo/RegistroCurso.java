@@ -20,7 +20,15 @@ public class RegistroCurso {
 
     private double progreso;
     private LocalDate fechaInscripcion;
-    
+
+    public RegistroCurso() {}
+
+    public RegistroCurso(Usuario usuario, Curso curso, double progreso, LocalDate fechaInscripcion) {
+        this.usuario = usuario;
+        this.curso = curso;
+        this.progreso = progreso;
+        this.fechaInscripcion = fechaInscripcion;
+    }
 	public LocalDate getFechaInscripcion() {
 		return fechaInscripcion;
 	}
@@ -33,4 +41,29 @@ public class RegistroCurso {
 	public void setProgreso(double progreso) {
 		this.progreso = progreso;
 	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
+	} 
+
 }

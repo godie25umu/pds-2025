@@ -15,6 +15,13 @@ public class Curso {
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ejercicio> ejercicios = new ArrayList<>();
 
+    public Curso() {}
+
+    public Curso(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.ejercicios = new ArrayList<>();
+    }
 	public Long getId() {
 		return id;
 	}

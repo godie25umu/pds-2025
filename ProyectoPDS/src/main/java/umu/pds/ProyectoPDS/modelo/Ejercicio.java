@@ -14,13 +14,16 @@ public abstract class Ejercicio {
     @ManyToOne
     @JoinColumn(name = "curso_id")
     private Curso curso;
+    
+    public Ejercicio() {}
+    
+    public Ejercicio(String enunciado, Curso curso) {
+        this.enunciado = enunciado;
+        this.curso = curso;
+    }
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getEnunciado() {

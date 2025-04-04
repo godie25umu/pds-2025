@@ -67,8 +67,7 @@ El usuario debe poder reanudar el curso que antes ha dejado a medias.
 
 ## Identificador: Guardado de estadísticas
 **Actor(es):**  
-- Usuario  
-- Sistema  
+- PErsona que usa la aplicación 
 
 **Objetivo:**  
 El usuario debe poder conservar sus estadísticas de uso de la aplicación, como tiempo de uso o mejores rachas.  
@@ -89,7 +88,7 @@ El usuario debe poder conservar sus estadísticas de uso de la aplicación, como
 
 ## Identificador: Compartir cursos
 **Actor(es):**  
-- Usuario  
+- Persona que quiere compartir cursos
 
 **Objetivo:**  
 El usuario podrá compartir un curso creado con otros usuarios.  
@@ -99,7 +98,7 @@ El usuario podrá compartir un curso creado con otros usuarios.
 
 **Pasos:**  
 1. El usuario accede a la carpeta donde tiene almacenados los cursos.  
-2. Envía a otro usuario el archivo JSON correspondiente al curso que desea compartir.  
+2. Envía a otro usuario el archivo de curso correspondiente al curso que desea compartir.  
 3. El otro usuario lo recibe y lo coloca en su carpeta.  
 
 

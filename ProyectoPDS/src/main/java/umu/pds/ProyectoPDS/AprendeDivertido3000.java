@@ -1,5 +1,5 @@
 package umu.pds.ProyectoPDS;
-import umu.pds.ProyectoPDS.modelo.ControladorAprendeDivertido;
+import umu.pds.ProyectoPDS.controlador.ControladorAprendeDivertido;
 
 public class AprendeDivertido3000 {
 	

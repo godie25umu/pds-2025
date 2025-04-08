@@ -56,6 +56,7 @@ public class VentanaPrincipal {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Label Salir Clicada");
+                System.exit(0);
             }
         });
         lblConfiguracion.addMouseListener(new MouseAdapter() {

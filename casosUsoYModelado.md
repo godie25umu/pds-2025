@@ -2,55 +2,72 @@
 
 ## Identificador: Inicio de curso
 **Actor(es):**  
-- Usuario  
-- Sistema  
+- Persona que quiere realizar un curso  
 
 **Objetivo:**  
 Iniciar el curso (por primera vez) en el que el usuario adquirirá nuevos conocimientos sobre alguna materia.  
 
-**Precondiciones:**  
-- El curso existe y está integrado en el sistema.  
-
 **Pasos:**  
 1. El usuario accede a la aplicación y a la ventana de selección de cursos.  
 2. El usuario selecciona el curso que quiere realizar y la estrategia de aprendizaje.  
-3. El sistema carga el archivo JSON con la información del curso y usa su contenido para comenzar.  
+3. El sistema carga el archivo de curso con la información del curso y usa su contenido para comenzar.  
 
 **Cuestiones:**  
 - ¿Qué pasa si se produce un error a la hora de leer el archivo del curso?  
 
 **Alternativas:**  
-- **3.a**: Se produce un error al leer el archivo JSON → Se muestra un mensaje de error en la aplicación y el usuario regresa a la ventana de selección de curso.  
+- **3.a**: Se produce un error al leer el archivo de curso → Se muestra un mensaje de error en la aplicación y el usuario regresa a la ventana de selección de curso.  
 
 ---
 
-## Identificador: Pausa en el curso
-**Actor(es):**  
-- Usuario  
-- Sistema  
+## Caso de Uso: Realización del curso
 
+**Actores:**
+-Persona que está realizando un curso
+
+**Objetivo:**
+-Permitir que el usuario realize el curso hasta el final, incluso haciendo pausas de por medio.
+
+**Precondiciones**
+- El usuario está inscrito en el curso.
+
+**Pasos**
+1. El usuario selecciona un curso.
+2. El sistema muestra las lecciones disponibles.
+3. El usuario elige una lección.
+4. El sistema presenta los ejercicios.
+5. El usuario responde.
+6. El sistema verifica y muestra datos de análisis.
+7. Si el usuario completa la lección, el sistema registra el progreso de forma persistente.
+8. Si el usuario falla, el sistema permite repetir ejercicios.
+9. Al finalizar, el sistema muestra el progreso actual del curso.
+
+---
+
+## Identificador: Reaudación del curso
+**Actor(es):**  
+- Persona que quiere reanudar un curso que antes ha sido pausado.
+- 
 **Objetivo:**  
-El usuario debe poder cambiar de curso o cerrar la aplicación sin perder su progreso.  
+El usuario debe poder reanudar el curso que antes ha dejado a medias.  
 
 **Pasos:**  
-1. El usuario está en medio de un curso y selecciona la opción de salir.  
-2. El sistema crea un archivo de persistencia con las estadísticas y progreso actuales (podría ser una sección en el archivo JSON).  
-3. La próxima vez que se seleccione el curso, el sistema revisará este archivo y restaurará el estado anterior.  
+1. El usuario accede a la aplicación y a la ventana de selección de cursos.  
+2. El usuario selecciona el curso que quiere realizar.
+3. El sistema reconoce que se tienen "datos de guardado".
+4. Se usan estos datos para dejar el curso en el estado en el que estuvo por última vez.   
 
 **Cuestiones:**  
 - ¿Qué pasa si se produce un error al leer el archivo de persistencia?  
-- ¿Qué pasa si la aplicación se cierra de forma imprevista?  
 
 **Alternativas:**  
 - **3.a**: Se produce un error al leer el archivo de persistencia → Se muestra un mensaje de error en la aplicación y el usuario tendrá que empezar desde el principio.  
-- **1.a**: La aplicación se cierra sin que el sistema haya guardado → Para minimizar pérdidas, se realiza un guardado automático del progreso cada cierto tiempo.  
 
 ---
 
 ## Identificador: Guardado de estadísticas
 **Actor(es):**  
-- Usuario  
-- Sistema  
+- PErsona que usa la aplicación 
 
 **Objetivo:**  
 El usuario debe poder conservar sus estadísticas de uso de la aplicación, como tiempo de uso o mejores rachas.  
@@ -68,25 +85,10 @@ El usuario debe poder conservar sus estadísticas de uso de la aplicación, como
 
 ---
 
-## Identificador: Sistema de logros
-**Actor(es):**  
-- Usuario  
-- Sistema  
-
-**Objetivo:**  
-El usuario obtendrá logros (o medallas) cuando logre realizar ciertas hazañas (Ej: racha de más de 20 días).  
-
-**Pasos:**  
-1. El usuario realiza una hazaña.  
-2. El sistema lo reconoce y muestra un mensaje de celebración.  
-3. El sistema añade el logro a la colección del usuario.  
-4. El sistema actualiza el archivo de persistencia.  
-
----
 
 ## Identificador: Compartir cursos
 **Actor(es):**  
-- Usuario  
+- Persona que quiere compartir cursos
 
 **Objetivo:**  
 El usuario podrá compartir un curso creado con otros usuarios.  
@@ -96,7 +98,7 @@ El usuario podrá compartir un curso creado con otros usuarios.
 
 **Pasos:**  
 1. El usuario accede a la carpeta donde tiene almacenados los cursos.  
-2. Envía a otro usuario el archivo JSON correspondiente al curso que desea compartir.  
+2. Envía a otro usuario el archivo de curso correspondiente al curso que desea compartir.  
 3. El otro usuario lo recibe y lo coloca en su carpeta.  
 
 
@@ -110,8 +112,8 @@ classDiagram
         - String contraseña
         + registrarse()
         + iniciarSesion()
-        + iniciarCurso(Curso curso)
-        + guardarProgreso(Curso curso)
+        + iniciarCurso(Cursorealizado curso)
+        + guardarProgreso(CursoRealizado curso)
         + guardarEstadisticas(Estadisticas estadisticas)
     }
 
@@ -128,6 +130,10 @@ classDiagram
     class Curso {
         - String nombre
         - String dominio
+    }
+
+    class cursoRealizado {
+        - ProgresoCurso progreso
         + responderPreguntas(BloqueContenido bloque, EstrategiaAprendizaje estrategia)
     }
 
@@ -157,13 +163,13 @@ classDiagram
     class Estadisticas {
         - int tiempoUso
         - int mejorRacha
+        - logrosConseguidos
         + actualizarEstadisticas()
         + conseguirLogro()
-        - array logrosConseguidos
     }
 
-    Usuario "1" -- "*" Curso : realiza
-    Curso "1" -- "*" BloqueContenido : contiene
+    Usuario "1" -- "*" cursoRealizado : realiza
+    cursoRealizado "1" -- "*" BloqueContenido : contiene
     BloqueContenido "1" -- "*" Pregunta : tiene
     Pregunta <|-- PreguntaTest
     Pregunta <|-- Completar
@@ -172,4 +178,7 @@ classDiagram
     EstrategiaAprendizaje <|-- RepeticionEspaciada
     EstrategiaAprendizaje <|-- Aleatoria
     Usuario "1" -- "1" Estadisticas : tiene
-    Curso "*" -- "1" EstrategiaAprendizaje : aplica
+    cursoRealizado "*" -- "1" EstrategiaAprendizaje : aplica
+
+    Curso <|-- cursoRealizado
+
